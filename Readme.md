@@ -28,7 +28,7 @@
 
 ## Step 2: SSH into your server
 
-* Go to Accounts, click SSH keys tab and download the SSH Key.
+* Go to Lightsail Accounts, click SSH keys tab and download the SSH Key.
 
 * ```ssh -i ~/Downloads/<SSH Key> ubuntu@13.127.133.58```
 
