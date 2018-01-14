@@ -29,7 +29,7 @@
 
 * Go to Accounts, click SSH keys tab and download the SSH Key.
 
-* ssh -i ~/Downloads/<SSH Key> ubuntu@13.127.133.58
+* ```ssh -i ~/Downloads/<SSH Key> ubuntu@13.127.133.58```
 
 ## Step 3: Create a new user grader
 
@@ -85,7 +85,7 @@
 ## Step 8: Login using grader user
 
 *  Downloaded SSH Keys from Lightsaid accout into `Downloads` Folder on window machine
-    *  `ssh -i Downloaded SSH-Keys -p 2200 grader@13.127.133.58'
+    *  ```ssh -i /path/to/Downloaded SSH-Keys -p 2200 grader@13.127.133.58```
 
 ## Step 9: Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80) and NTP (port 123)
 
