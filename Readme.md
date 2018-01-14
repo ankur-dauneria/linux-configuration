@@ -1,5 +1,6 @@
-<link href="https://fonts.googleapis.com/css?family=Playball" rel="stylesheet">
-<p align=center style="font-family: 'Playball', cursive; font-size: 60px; color: #303f9f">Linux Server Configuration </p>
+<p align="center">
+  <a href="#"><img src="title.png"></a>
+</p>
 <p align="center">
   <a href="https://opensource.org/licenses/MIT" target="_blank">
     <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
