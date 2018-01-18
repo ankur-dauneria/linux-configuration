@@ -76,18 +76,17 @@
     * `mkdir .ssh`
 * Create file `authorized_keys`
     * `touch .ssh/authorized_keys`
-    * `nano .ssh/authorized_keys`
-        * Copy contents of `/home/ubuntu/grader.pub` to `.ssh/authorized_keys`
-        * save it
     * `chmod 700 .ssh`
     * `chmod 600 .ssh/authorized_keys`
-* `nano /etc/ssh/sshd_config`
+* `sudo nano /etc/ssh/sshd_config`
     * Change `PasswordAuthentication` from `yes` to `no`.
+* `exit`
+* `ssh-copy-id -p 2200 grader@5.154.108.134`
 * `sudo service ssh restart`
 
 ## Step 8: Login using grader user
 
-*  Using the generated private keys on local computer, login into system
+*  Using the generated private keys on local computers, login into system
     *  ```ssh -i /path/to/SSH-Keys -p 2200 grader@35.154.108.134```
 
 ## Step 9: Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80) and NTP (port 123)
