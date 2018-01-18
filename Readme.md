@@ -81,7 +81,7 @@
 * `sudo nano /etc/ssh/sshd_config`
     * Change `PasswordAuthentication` from `yes` to `no`.
 * `exit`
-* `ssh-copy-id -p 2200 grader@5.154.108.134`
+* `ssh-copy-id -p 2200 grader@35.154.108.134`
 * `sudo service ssh restart`
 
 ## Step 8: Login using grader user
