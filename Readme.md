@@ -12,9 +12,9 @@
 
 > Configuring the Linux server and installing the item-catalog web application. It includes installing updates, securing it, and installing/configuring web and database servers.
 
-* EC2 URL : http://ec2-13-127-133-58.ap-south-1.compute.amazonaws.com
+* EC2 URL : http://ec2-35-154-108-134.ap-south-1.compute.amazonaws.com/
 
-* Local IP : http://13.127.133.58/
+* Local IP : http://35.154.108.134/
 
 * Port : 2200
 
@@ -30,7 +30,7 @@
 
 * Go to Lightsail Accounts, click SSH keys tab and download the SSH Key.
 
-* ```ssh -i ~/Downloads/<SSH Key> ubuntu@13.127.133.58```
+* ```ssh -i ~/Downloads/<SSH Key> ubuntu@35.154.108.134```
 
 ## Step 3: Create a new user grader
 
@@ -67,26 +67,28 @@
 ## Step 7: SSH keys generation
 
 * generate SSH keys
-    * ssh-keys
+    * `ssh-keygen` on local computer
         * enter `grader`
         * press enter for empty paraphrase
 * Login using grader user
-    * su - grader
+    * `su - grader`
 * Make directory `.ssh`
-    * mkdir .ssh
+    * `mkdir .ssh`
 * Create file `authorized_keys`
-    * touch `.ssh/authorized_keys`
+    * `touch .ssh/authorized_keys`
     * `nano .ssh/authorized_keys`
         * Copy contents of `/home/ubuntu/grader.pub` to `.ssh/authorized_keys`
         * save it
     * `chmod 700 .ssh`
     * `chmod 600 .ssh/authorized_keys`
+* `nano /etc/ssh/sshd_config`
+    * Change `PasswordAuthentication` from `yes` to `no`.
 * `sudo service ssh restart`
 
 ## Step 8: Login using grader user
 
-*  Downloaded SSH Keys from Lightsaid accout into `Downloads` Folder on window machine
-    *  ```ssh -i /path/to/Downloaded SSH-Keys -p 2200 grader@13.127.133.58```
+*  Using the generated private keys on local computer, login into system
+    *  ```ssh -i /path/to/SSH-Keys -p 2200 grader@35.154.108.134```
 
 ## Step 9: Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80) and NTP (port 123)
 
@@ -117,13 +119,13 @@
 
 * Install Apache weeb server:
     * `sudo apt-get install apache2`
-* Open a browser and open your public IP address, e.g. http://13.127.133.58/. It should say 'It works!'.
+* Open a browser and open your public IP address, e.g. http://35.154.108.134/. It should say 'It works!'.
     * Install mod_wsgi for serving Python apps from Apache and helper package python-setuptools:
         * `sudo apt-get install python-setuptools libapache2-mod-wsgi`
     * Restart Apache server for mod_wsgi to load:
         * `sudo service apache2 restart`
     * Create an empty Apache config with the hostname:
-        * `echo ServerName HOSTNAME | sudo tee /etc/apache2/conf-available/fqdn.conf
+        * `echo ServerName HOSTNAME | sudo tee /etc/apache2/conf-available/fqdn.conf`
     * Enable the new config file:
         * `sudo a2enconf fqdn`
 
@@ -155,7 +157,7 @@
         * `cd catalog`,
         * `sudo mkdir static templates`
 * Create file that contain Flask application logic:
-    * sudo nano __init__.py
+    * `sudo nano __init__.py`
     * Paste the following code:
         ```python
              from flask import Flask
@@ -274,9 +276,9 @@
     * `sudo vim database_setup.py`
 * Change the line starting with "engine" to (fill in a password):
     * `python engine = create_engine('postgresql://catalog:PW-FOR-DB@localhost/catalog')`
-* Change the same line in application.py respectively
+* Change the same line in `application.py` respectively
     * Change the location to raw location in python using `r` e.g: r'/var/www/catalog/catalog/' for client_secret.json file
-    * Change directory using 'os.chdir(r'/var/www/catalog/catalog/')' to the top before accessing client_secret.json file
+    * Change directory using `os.chdir(r'/var/www/catalog/catalog/')` to the top before accessing client_secret.json file
 * Rename application.py:
     * `sudo mv application.py __init__.py`
 * Create needed linux user for psql:
@@ -309,7 +311,7 @@
 
 * Restart Apache:
     `sudo service apache2 restart`
-* Open a browser and put in your public ip-address as url, e.g. http://ec2-13-127-133-58.ap-south-1.compute.amazonaws.com/ - if everything works, the application should come up
+* Open a browser and put in your public ip-address as url, e.g. http://ec2-35-154-108-134.ap-south-1.compute.amazonaws.com/ - if everything works, the application should come up
 * If getting an internal server error, check the Apache error files:
     * `sudo tail -20 /var/log/apache2/error.log`
 
@@ -319,7 +321,7 @@
 * To get the Google+ authorization working:
     * Go to the project on the Developer Console: https://console.developers.google.com/project
     * Navigate to APIs & auth > Credentials > Edit Settings
-    * add your host name and public IP-address to your Authorized JavaScript origins and your host name + oauth2callback to Authorized redirect URIs, e.g. http://ec2-13-127-133-58.ap-south-1.compute.amazonaws.com/oauth2callback
+    * add your host name and public IP-address to your Authorized JavaScript origins and your host name + oauth2callback to Authorized redirect URIs, e.g. http://ec2-35-154-108-134.ap-south-1.compute.amazonaws.com/oauth2callback
     * Update data-client id in `templates/login.html`
     * restart apache
         * `sudo service apache2 restart`
